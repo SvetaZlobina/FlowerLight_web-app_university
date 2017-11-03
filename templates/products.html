@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Flowerlight - заказать{% endblock %}
+
+{% block body %}
+    <div class="container list-products">
+        <!-- Example row of columns --
+
+        <div class="container list-products">
+        <!-- Example row of columns -->
+        <div class="row">
+            {% if products %}
+                {% for product in products %}
+                    {% include 'product_element.html' with element=product %}
+                {% endfor %}
+            {% else %}
+                Список наших товаров почему-то пуст! Приносим свои извинения за неудобства
+            {% endif %}
+
+        </div>
+
+        <hr>
+
+      </div> <!-- /container -->
+{% endblock %}
