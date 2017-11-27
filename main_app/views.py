@@ -18,9 +18,9 @@ def index_render(request):
 def products_render(request):
     data = {
         'products': [
-            {'heading': 'Букет 1', 'id': 1},
-            {'heading': 'Букет 2', 'id': 2},
-            {'heading': 'Букет 3', 'id': 3}
+            #{'heading': 'Букет 1', 'id': 1},
+            #{'heading': 'Букет 2', 'id': 2},
+            #{'heading': 'Букет 3', 'id': 3}
         ]
     }
     return render(request, 'products.html', data)
