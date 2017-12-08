@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.views.generic.list import ListView
+from .models import Product
 
 from django.http import HttpResponse
 
@@ -31,6 +33,14 @@ def product_info(request, id):
         'id': id
     }
     return render(request, 'product_info.html', data)
+
+
+class ProductsList(ListView):
+    model = Product
+    template_name = 'products.html'
+    context_object_name = 'products'
+
+
 
 
 
