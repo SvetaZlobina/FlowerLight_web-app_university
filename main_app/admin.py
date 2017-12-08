@@ -13,7 +13,7 @@ class ClientsAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductsAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['name', 'price', 'image']
 
 
 @admin.register(Order)
