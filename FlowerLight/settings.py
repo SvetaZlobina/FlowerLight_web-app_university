@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'main_app'
 ]
 
 MIDDLEWARE = [
@@ -76,8 +77,16 @@ WSGI_APPLICATION = 'FlowerLight.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'FlowerLight_db',
+        # 'USER': 'FlowerLight_user',
+        # 'PASSWORD': 'user',
+        'USER': 'FlowerLight_admin',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': 3306,
+        'OPTIONS': {'charset': 'utf8'},
+        'TEST_CHARSET': 'utf8'
     }
 }
 
