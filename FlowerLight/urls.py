@@ -19,8 +19,8 @@ from main_app import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^hello/', views.hello_func),
     url(r'^$', views.index_render),
     url(r'^products/$', views.ProductsList.as_view(), name='products_list'),
     url(r'^products/(?P<id>\d+)$', views.product_info, name='product_page'),
+    url(r'^sign-in/$', views.sign_in, name='login_page'),
 ]
