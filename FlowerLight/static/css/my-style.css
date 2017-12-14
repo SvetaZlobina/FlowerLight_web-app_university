@@ -1,3 +1,31 @@
 .list-products{
   margin-top: 2%;
 }
+
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: right;
+}
+
+body{
+    height: 100%;
+}
+
+html{
+    min-height: 100%;
+    position: relative;
+}
+
+.form-container {
+    margin-top: 2%;
+}
+
+.btn-sign-in{
+    margin-top: 10%;
+}
+
+.error{
+    color: red;
+}
