@@ -3,6 +3,7 @@ from django.views.generic.list import ListView
 from django.core import exceptions
 from django import forms
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 
 from .models import Product, Client
 from .forms import LoginForm, RegisterForm
@@ -84,3 +85,9 @@ def error(request):
     return render(request, 'error.html', {'user': request.user,
                                           'auth': request.user.is_authenticated})
 
+
+@login_required(login_url='/login/')
+def ordering(request):
+    return render(request, 'ordering.html', {'user': request.user,
+                                             'auth': request.user.is_authenticated})
+                                             # 'product': product})

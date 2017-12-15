@@ -6,5 +6,5 @@
         <a style="color: inherit" href="{% url 'product_page' element.id %}">{{ element.name }}</a>
     </h2>
     <p style="height: 25%; overflow: hidden;">{{ element.description }}</p>
-    <p><a class="btn btn-secondary" href="{% url 'product_page' element.id %}" role="button">Заказать</a></p>
+    <p><a class="btn btn-secondary" href="{% url 'ordering_page' %}" role="button">Заказать</a></p>
 </div>
