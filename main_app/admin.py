@@ -8,14 +8,16 @@ from .models import Order
 
 @admin.register(Client)
 class ClientsAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['login', 'email', 'name']
 
 
 @admin.register(Product)
 class ProductsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'image']
+    list_display = ['name', 'price', 'type']
+    list_filter = ('type', 'price')
 
 
 @admin.register(Order)
 class OrdersAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['client', 'product', 'amount', 'order_date', 'delivery_date']
+    list_filter = ('product', 'amount', 'order_date', 'delivery_date')

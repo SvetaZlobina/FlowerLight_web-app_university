@@ -1,13 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}Flowerlight - заказать{% endblock %}
+{% block title %}Flowerlight - список товаров{% endblock %}
 
 {% block body %}
-    <div class="container list-products">
-        <!-- Example row of columns --
 
-        <div class="container list-products">
-        <!-- Example row of columns -->
+    <div class="container list-products">
         <div class="row">
             {% if products %}
                 {% for product in products %}
@@ -16,10 +13,7 @@
             {% else %}
                 Список наших товаров почему-то пуст! Приносим свои извинения за неудобства
             {% endif %}
-
         </div>
+    </div>
 
-        <hr>
-
-      </div> <!-- /container -->
 {% endblock %}

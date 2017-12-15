@@ -1,5 +1,10 @@
 <div class="col-md-4">
-    <h2>{{ element.name }}</h2>
-    <p>{{ element.description }}</p>
-    <p><a class="btn btn-secondary" href="{% url 'product_page' element.id %}" role="button">Подробнее &raquo;</a></p>
+    <img class="rounded-circle"
+         src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+         alt="Generic placeholder image" width="140" height="140">
+    <h2>
+        <a style="color: inherit" href="{% url 'product_page' element.id %}">{{ element.name }}</a>
+    </h2>
+    <p style="height: 25%; overflow: hidden;">{{ element.description }}</p>
+    <p><a class="btn btn-secondary" href="{% url 'ordering_page' %}" role="button">Заказать</a></p>
 </div>
