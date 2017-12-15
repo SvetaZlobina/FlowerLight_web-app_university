@@ -1,5 +1,6 @@
 .list-products {
     margin-top: 2%;
+    text-align: center;
 }
 
 footer {
@@ -57,4 +58,8 @@ html {
 
 .nav-item .nav-link .auth-nav-support {
     color: #fff !important;
+}
+
+.product-item{
+    text-align: center;
 }
