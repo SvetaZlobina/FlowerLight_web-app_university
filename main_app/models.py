@@ -6,11 +6,11 @@ from django.db import models
 class Client(models.Model):
     name = models.CharField(max_length=50)
     login = models.CharField(max_length=20, unique=True)
-    password = models.CharField(max_length=8)
+    # password = models.CharField(max_length=8)
     email = models.EmailField(max_length=50)
     phone = models.CharField(max_length=15)
     address = models.CharField(max_length=100)
-    avatar = models.ImageField(default='{PWD}/FlowerLight/static/img/default_avatar.svg')
+    # avatar = models.ImageField(default='{PWD}/FlowerLight/static/img/default_avatar.svg')
 
     def __str__(self):
         return self.login
