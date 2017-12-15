@@ -24,7 +24,7 @@
 
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="z-index: 1">
     <a class="navbar-brand" href="{% url 'index_page' %}">Flowerlight</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,9 +36,16 @@
             {#                        <li class="nav-item active">#}
             {#                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>#}
             {#                        </li>#}
-            {#                        <li class="nav-item">#}
-            {#                            <a class="nav-link" href="#">Link</a>#}
-            {#                        </li>#}
+            {#                                    <li class="nav-item" style="margin-left: 10%">#}
+            {#                                        <a class="nav-link" href="#">Добавить товар</a>#}
+            {#                                    </li>#}
+
+            {% if user.is_staff %}
+                <a class="btn btn-outline-warning my-2 my-sm-0 margin-register add-prod-color"
+                   style="margin-left: 30%;"
+                   role="button" onclick="addProductModal()">Добавить товар</a>
+            {% endif %}
+
             {#                        <li class="nav-item">#}
             {#                            <a class="nav-link disabled" href="#">Disabled</a>#}
             {#                        </li>#}
@@ -56,8 +63,7 @@
         {% if not auth %}
             <a class="btn btn-outline-info my-2 my-sm-0 margin-register" role="button" href="{% url 'register_page' %}">Зарегистрироваться</a>
             <a class="btn btn-outline-success my-2 my-sm-0" role="button" href="{% url 'login_page' %}">Войти</a>
-        {% endif %}
-        {% if auth %}
+        {% else %}
             <a class="nav-item nav-link auth-nav-support" style="color: #fff;">Вы вошли как:</a>
             <a class="btn-outline-info my-2 my-sm-0 margin-register" href="{% url 'index_page' %}">{{ user }}</a>
             <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'logout_page' %}">Выйти</a>
@@ -75,6 +81,8 @@
     {% block body %}{% endblock %}
 </main>
 
+{% include 'product_adding.html' %}
+
 <footer class="container">
     <p>&copy; FlowerLight 2017</p>
 </footer>
@@ -88,5 +96,6 @@
 <script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/addProductModal.js' %}"></script>
 </body>
 </html>

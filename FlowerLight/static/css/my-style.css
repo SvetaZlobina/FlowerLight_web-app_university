@@ -60,6 +60,42 @@ html {
     color: #fff !important;
 }
 
-.product-item{
+.product-item {
     text-align: center;
+}
+
+.modal-win {
+    height: 200px;
+    width: 300px;
+    border: 3px outset gray;
+    background: wheat;
+    top: 20%; /* отступ сверху */
+    right: 0;
+    left: 0;
+    font-size: 14px;
+    margin: 0 auto;
+    z-index: 3; /* поверх всех */
+    display: none; /* сначала невидим */
+    position: fixed; /* фиксированное позиционирование, окно стабильно при прокрутке */
+    padding: 15px;
+    border: 1px solid #383838;
+}
+
+#shadow {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 2; /* поверх всех  кроме окна*/
+    background: #000;
+    opacity: 0.5; /*прозрачность*/
+    left: 0;
+    top: 0;
+}
+
+.add-prod-color:hover{
+    color: #fff!important;
+}
+
+.add-prod-color{
+    color: #ffc107!important;
 }

@@ -135,14 +135,15 @@ STATICFILES_FINDERS = (
             'django.contrib.staticfiles.finders.FileSystemFinder',
             'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
-print("base dir path", BASE_DIR)
-print("_path", _PATH)
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
             os.path.join(_PATH, 'static'),
             )
-print("staticfiles_dirs", STATICFILES_DIRS)
+MEDIA_ROOT = (os.path.join(_PATH, 'static/upload'))
+MEDIA_URL = '/upload/'
+
+
 
 

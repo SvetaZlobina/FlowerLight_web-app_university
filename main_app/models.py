@@ -37,7 +37,7 @@ class Product(models.Model):
     name = models.CharField(max_length=50, unique=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     description = models.TextField(null=True)
-    image = models.ImageField(default='img/default_flower_image.png')
+    image = models.ImageField(default='productPictures/default_flower_image.jpg', upload_to='productPictures')
     type = models.IntegerField(choices=PRODUCT_TYPE_CHOICES,
                                default=BOUQUET)
 
