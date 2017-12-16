@@ -34,7 +34,7 @@ class Product(models.Model):
         (SEEDS, SEEDS_NAME)
     )
 
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50)
     type = models.IntegerField(choices=PRODUCT_TYPE_CHOICES,
                                default=BOUQUET)
     price = models.DecimalField(max_digits=8, decimal_places=2)

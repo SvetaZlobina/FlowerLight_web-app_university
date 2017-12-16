@@ -1,7 +1,7 @@
 <div style="border: #5a5a5a solid;" id="popupWin" class="modal-win">
     <div class="container form-container">
 
-        <form method="post" class="form-signin">
+        <form action="{% url 'adding_product_page' %}" method="post" class="form-signin" enctype="multipart/form-data">
             {% csrf_token %}
             <h2 class="form-signin-heading form-heading-align">Добавление товара</h2>
 

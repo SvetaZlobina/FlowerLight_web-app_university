@@ -115,14 +115,37 @@ class ProductAddingForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'название',
                                                          'class': 'form-control'}),
                            max_length=50)
-    type = forms.ChoiceField(choices=Product.PRODUCT_TYPE_CHOICES,
-                             # default=Product.BOUQUET,
-                             widget=forms.TextInput(attrs={'placeholder': 'тип',
-                                                           'class': 'form-control'}), )
+    type = forms.TypedChoiceField(choices=Product.PRODUCT_TYPE_CHOICES,
+                                  empty_value='тип товара',
+                                  widget=forms.Select(attrs={'placeholder': 'тип',
+                                                             'class': 'form-control'},
+                                                      choices=Product.PRODUCT_TYPE_CHOICES))
     price = forms.DecimalField(max_digits=8, decimal_places=2,
-                               widget=forms.TextInput(attrs={'placeholder': 'цена за единицу',
-                                                             'class': 'form-control'}), )
+                               widget=forms.NumberInput(attrs={'placeholder': 'цена за единицу',
+                                                               'class': 'form-control'}), )
     description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control',
                                                                'placeholder': 'описание',
                                                                'rows': 2}))
-    image = forms.ImageField()
+    image = forms.ImageField(required=False)
+
+    # widget=forms.FileInput(attrs={'placeholder': 'изображение',
+    #                                                        'class': 'form-control'}))
+
+    def add_product(self):
+        name = self.cleaned_data['name']
+        product_type = self.cleaned_data['type']
+        price = self.cleaned_data['price']
+        description = self.cleaned_data['description']
+        image = self.cleaned_data['image']
+
+        try:
+            if image:
+                new_product = Product(name=name, type=product_type, price=price,
+                                      description=description, image=image)
+            else:
+                new_product = Product(name=name, type=product_type, price=price,
+                                      description=description)
+            new_product.save()
+            return new_product.id
+        except BaseException:  # если вдруг что-то пошло не так
+            return False

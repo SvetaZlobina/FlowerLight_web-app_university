@@ -20,14 +20,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', views.index_render, name='index_page'),
-    url(r'^products/$', views.ProductsList.as_view(), name='products_list'),
-    url(r'^products/(?P<product_id>\d+)$', views.product_info, name='product_page'),
-    url(r'^login/$', views.login, name='login_page'),
-    url(r'^register/$', views.register, name='register_page'),
-    url(r'^logout/$', views.logout, name='logout_page'),
-    url(r'^error/$', views.error, name='error_page'),
-    url(r'^ordering/$', views.ordering, name='ordering_page'),
+                  url(r'^admin/', admin.site.urls),
+                  url(r'^$', views.index_render, name='index_page'),
+                  url(r'^products/$', views.ProductsList.as_view(), name='products_list'),
+                  url(r'^products/(?P<product_id>\d+)$', views.product_info, name='product_page'),
+                  url(r'^login/$', views.login, name='login_page'),
+                  url(r'^register/$', views.register, name='register_page'),
+                  url(r'^logout/$', views.logout, name='logout_page'),
+                  url(r'^error/$', views.error, name='error_page'),
+                  url(r'^ordering/$', views.ordering, name='ordering_page'),
+                  url(r'^product_adding/$', views.product_adding, name='adding_product_page'),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

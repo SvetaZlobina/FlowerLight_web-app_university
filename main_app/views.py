@@ -4,6 +4,7 @@ from django.core import exceptions
 from django import forms
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 
 from .models import Product, Client, Order
 from .forms import LoginForm, RegisterForm, ProductAddingForm
@@ -35,12 +36,15 @@ def product_info(request, product_id):
     product_orders = Order.objects.filter(product=product)
     clients_already_ordered = []
     for order in product_orders:
-        clients_already_ordered.append(Client.objects.filter(id=order.client.id))
+        clients_already_ordered.append(Client.objects.get(id=order.client.id))
     data = {
         'product': product,
         'product_adding_form': product_adding_form,
-        'clients_already_ordered': clients_already_ordered
+        'clients_already_ordered': clients_already_ordered,
+        'auth': request.user.is_authenticated,
+        'user': request.user
     }
+    # print(clients_already_ordered[0].login)
     return render(request, 'product_info.html', data)
 
 
@@ -109,3 +113,18 @@ def ordering(request):
                                              'auth': request.user.is_authenticated,
                                              'product_adding_form': product_adding_form})
     # 'product': product})
+
+
+def product_adding(request):
+    if request.method == 'POST':
+        form = ProductAddingForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_product_id = form.add_product()
+            if new_product_id:
+                url = reverse('product_page', kwargs={'product_id': new_product_id})
+                return HttpResponseRedirect(url)
+            else:
+                return HttpResponseRedirect('/error/')
+        else:
+            return HttpResponseRedirect('/products/')
+
