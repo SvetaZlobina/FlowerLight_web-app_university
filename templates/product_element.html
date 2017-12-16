@@ -1,9 +1,10 @@
 {% load static %}
 <div class="col-md-4">
     <img class="rounded-circle"
-{#         src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="#}
+            {#         src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="#}
          src="{% static element.image.url %}"
-         alt="Generic placeholder image" width="140" height="140">
+         alt="Generic placeholder image" width="140" height="140"
+         href="{% url 'product_page' element.id %}">
     <h2>
         <a style="color: inherit" href="{% url 'product_page' element.id %}">{{ element.name }}</a>
     </h2>

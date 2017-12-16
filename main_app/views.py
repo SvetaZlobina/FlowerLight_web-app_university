@@ -5,7 +5,7 @@ from django import forms
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 
-from .models import Product, Client
+from .models import Product, Client, Order
 from .forms import LoginForm, RegisterForm, ProductAddingForm
 
 from django.http import HttpResponseRedirect
@@ -29,9 +29,17 @@ def index_render(request):
 #     return render(request, 'products.html', data)
 
 
-def product_info(request, id):
+def product_info(request, product_id):
+    product_adding_form = ProductAddingForm()
+    product = Product.objects.get(id=product_id)
+    product_orders = Order.objects.filter(product=product)
+    clients_already_ordered = []
+    for order in product_orders:
+        clients_already_ordered.append(Client.objects.filter(id=order.client.id))
     data = {
-        'id': id
+        'product': product,
+        'product_adding_form': product_adding_form,
+        'clients_already_ordered': clients_already_ordered
     }
     return render(request, 'product_info.html', data)
 

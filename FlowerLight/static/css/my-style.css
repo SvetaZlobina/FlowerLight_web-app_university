@@ -98,3 +98,7 @@ html {
 .add-prod-color{
     color: #ffc107!important;
 }
+
+.product-info{
+    text-align: center;
+}
