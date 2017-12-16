@@ -23,7 +23,7 @@ class Product(models.Model):
     SEEDS = 3
 
     BOUQUET_NAME = 'букеты'
-    SEPARATED_FLOWER_NAME = 'отдельные цветы для букета'
+    SEPARATED_FLOWER_NAME = 'срезанные отдельные цветы'
     ALIVE_FLOWER_NAME = 'живые цветы'
     SEEDS_NAME = 'семена'
 
@@ -35,11 +35,11 @@ class Product(models.Model):
     )
 
     name = models.CharField(max_length=50, unique=True)
+    type = models.IntegerField(choices=PRODUCT_TYPE_CHOICES,
+                               default=BOUQUET)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     description = models.TextField(null=True)
     image = models.ImageField(default='productPictures/default_flower_image.jpg', upload_to='productPictures')
-    type = models.IntegerField(choices=PRODUCT_TYPE_CHOICES,
-                               default=BOUQUET)
 
     def __str__(self):
         return self.name

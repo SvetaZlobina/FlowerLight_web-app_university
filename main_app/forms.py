@@ -4,7 +4,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 
-from .models import Client
+from .models import Client, Product
 
 FORM_ERROR_MESSAGES = {'required': 'Пожалуйста, заполните это поле'}
 
@@ -16,28 +16,6 @@ class LoginForm(forms.Form):
     password = forms.CharField(error_messages=FORM_ERROR_MESSAGES,
                                widget=forms.PasswordInput(attrs={'class': 'form-control',
                                                                  'placeholder': 'пароль'}))
-
-    # def is_valid(self):
-    #     valid = super(LoginForm, self).is_valid()
-    #
-    #     if not valid:
-    #         return valid
-    #
-    #     login = self.cleaned_data['login']
-    #     password = self.cleaned_data['password']
-    #
-    #     try:
-    #         client = Client.objects.get(login=login)
-    #         if client.password == password:
-    #             return True
-    #         else:
-    #             self.add_error(None,
-    #                            forms.ValidationError('Неправильный пароль!'))
-    #             return False
-    #     except exceptions.ObjectDoesNotExist:
-    #         self.add_error(None,
-    #                        forms.ValidationError('Пользователя с таким логином не существует!'))
-    #         return False
 
     def user_login(self, request):
         login = self.cleaned_data['login']
@@ -132,3 +110,19 @@ class RegisterForm(forms.Form):
 
         return True
 
+
+class ProductAddingForm(forms.Form):
+    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'название',
+                                                         'class': 'form-control'}),
+                           max_length=50)
+    type = forms.ChoiceField(choices=Product.PRODUCT_TYPE_CHOICES,
+                             # default=Product.BOUQUET,
+                             widget=forms.TextInput(attrs={'placeholder': 'тип',
+                                                           'class': 'form-control'}), )
+    price = forms.DecimalField(max_digits=8, decimal_places=2,
+                               widget=forms.TextInput(attrs={'placeholder': 'цена за единицу',
+                                                             'class': 'form-control'}), )
+    description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control',
+                                                               'placeholder': 'описание',
+                                                               'rows': 2}))
+    image = forms.ImageField()

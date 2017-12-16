@@ -6,14 +6,16 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 
 from .models import Product, Client
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, ProductAddingForm
 
 from django.http import HttpResponseRedirect
 
 
 def index_render(request):
+    product_adding_form = ProductAddingForm()
     return render(request, 'index.html', {'user': request.user,
-                                          'auth': request.user.is_authenticated})
+                                          'auth': request.user.is_authenticated,
+                                          'product_adding_form': product_adding_form})
 
 
 # def products_render(request):
@@ -38,15 +40,18 @@ class ProductsList(ListView):
     model = Product
     template_name = 'products.html'
     context_object_name = 'products'
+    product_adding_form = ProductAddingForm()
 
     def get_context_data(self, **kwargs):
         context = super(ProductsList, self).get_context_data(**kwargs)
         context['auth'] = self.request.user.is_authenticated
         context['user'] = self.request.user
+        context['product_adding_form'] = self.product_adding_form
         return context
 
 
 def login(request):
+    product_adding_form = ProductAddingForm()
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -57,10 +62,12 @@ def login(request):
 
     return render(request, 'login.html', {'form': form,
                                           'auth': request.user.is_authenticated,
-                                          'user': request.user})
+                                          'user': request.user,
+                                          'product_adding_form': product_adding_form})
 
 
 def register(request):
+    product_adding_form = ProductAddingForm()
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -73,7 +80,8 @@ def register(request):
 
     return render(request, 'register.html', {'form': form,
                                              'user': request.user,
-                                             'auth': request.user.is_authenticated})
+                                             'auth': request.user.is_authenticated,
+                                             'product_adding_form': product_adding_form})
 
 
 def logout(request):
@@ -88,6 +96,8 @@ def error(request):
 
 @login_required(login_url='/login/')
 def ordering(request):
+    product_adding_form = ProductAddingForm()
     return render(request, 'ordering.html', {'user': request.user,
-                                             'auth': request.user.is_authenticated})
-                                             # 'product': product})
+                                             'auth': request.user.is_authenticated,
+                                             'product_adding_form': product_adding_form})
+    # 'product': product})
