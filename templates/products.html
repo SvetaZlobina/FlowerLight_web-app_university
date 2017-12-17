@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Flowerlight - список товаров{% endblock %}
 
 {% block body %}
 
-    <div class="container list-products">
-        <div class="row">
+
+    <div id='products-container' class="container list-products infinite-container">
+        <div class="row products-row-margin">
             {% if products %}
                 {% for product in products %}
                     {% include 'product_element.html' with element=product %}
@@ -16,4 +18,28 @@
         </div>
     </div>
 
+    <div class="loading" style="display: none;">
+        Loading...
+    </div>
+
+    {% if page_obj.has_next %}
+        <a id="button-more-loading"
+           onclick="makeEndlessScrolling({{ page_obj.next_page_number }})"
+{#                class=""#}
+{#           href="{% url 'products_list' %}?page={{ page_obj.next_page_number }}"#}
+        >Загрузить ещё</a>
+    {% endif %}
+
+    {#    <script>#}
+    {#        let infinite = new Waypoint.Infinite({#}
+    {#            element: $('.infinite-container')[0],#}
+    {#            onBeforePageLoad: function () {#}
+    {#                $('.loading').show();#}
+    {#            },#}
+    {#            onAfterPageLoad: function ($items) {#}
+    {#                $('.loading').hide();#}
+    {#            }#}
+    {#        });#}
+    {#    </script>#}
+    <script src="{% static 'js/productsEndlessScrolling.js' %}"></script>
 {% endblock %}

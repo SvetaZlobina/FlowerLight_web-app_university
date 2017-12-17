@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main_app'
+    'main_app',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -143,6 +144,10 @@ STATICFILES_DIRS = (
             )
 MEDIA_ROOT = (os.path.join(_PATH, 'static/upload'))
 MEDIA_URL = '/upload/'
+
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 20,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',}
 
 
 

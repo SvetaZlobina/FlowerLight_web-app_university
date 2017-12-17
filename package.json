@@ -1,0 +1,28 @@
+{
+  "name": "flower-light",
+  "version": "1.0.0",
+  "description": "django web flower-shop",
+  "main": "index.js",
+  "dependencies": {
+    "fetch": "^1.1.0",
+    "fetch-headers": "^2.0.0",
+    "isomorphic-fetch": "^2.2.1",
+    "jquery": "^3.2.1",
+    "node-requirejs": "^0.1.1",
+    "waypoints": "^4.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SvetaZlobina/FlowerLight_web-app_university.git"
+  },
+  "author": "Svetlana Zlobina",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SvetaZlobina/FlowerLight_web-app_university/issues"
+  },
+  "homepage": "https://github.com/SvetaZlobina/FlowerLight_web-app_university#readme"
+}

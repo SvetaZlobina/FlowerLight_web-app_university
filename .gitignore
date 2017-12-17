@@ -105,4 +105,5 @@ venv.bak/
 
 .idea/
 .__pycache__/
+node_modules/
 
