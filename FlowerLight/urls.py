@@ -30,5 +30,7 @@ urlpatterns = [
                   url(r'^error/$', views.error, name='error_page'),
                   url(r'^order_adding/(?P<product_id>\d+)$', views.order_adding, name='adding_order_page'),
                   url(r'^product_adding/$', views.product_adding, name='adding_product_page'),
+                  url(r'^get_clients_ordered/(?P<product_id>\d+)$', views.get_clients_ordered,
+                      name='getting_clients_async'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -120,6 +120,9 @@ def order_adding(request, product_id):
             client = Client.objects.get(login=client_login)
             form.add_order(client.id, product_id)
             url = reverse('product_page', kwargs={'product_id': product_id})
+            # response = HttpResponse(status=200)
+            # response.write(product_id)
+            # return response
             return HttpResponse(status=200)
         else:
             return HttpResponse(status=400)
@@ -137,3 +140,14 @@ def product_adding(request):
                 return HttpResponseRedirect('/error/')
         else:
             return HttpResponseRedirect('/products/')
+
+
+def get_clients_ordered(request, product_id):
+    product = Product.objects.get(id=product_id)
+    product_orders = Order.objects.filter(product=product)
+    clients_already_ordered = set()
+    for order in product_orders:
+        clients_already_ordered.add(Client.objects.get(id=order.client.id))
+    response = HttpResponse(status=200)
+    response.write(clients_already_ordered)
+    return response

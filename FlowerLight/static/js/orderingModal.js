@@ -62,7 +62,12 @@ function addOrderByPromise(e, product_id) {
             // console.log(response.status)
         if (response.status === 200){
             closeButton.click();
+            // console.log(response.body);
             alert('Ваш заказ принят! Благодарим за использование услуг нашего магазина');
+            // fetch('/get_clients_ordered/')
+            //     .then(function (response) {
+            //         console.log(response.body)
+            //     })
         }
         else {
             alert('Что-то пошло не так. ' +
