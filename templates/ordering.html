@@ -1,7 +1,8 @@
 <div style="border: #5a5a5a solid; height: 80%;" id="popupWinOrdering" class="modal-win">
     <div class="container form-container">
 
-        <form action="{% url 'adding_order_page' product.id %}" method="post" class="form-signin" enctype="multipart/form-data">
+        <form id='order-form' method='post' class="form-signin">
+{#            action="{% url 'adding_order_page' product.id %}"#}
             {% csrf_token %}
             <h2 class="form-signin-heading form-heading-align">Оформление заказа</h2>
 
@@ -23,7 +24,7 @@
             </div>
 
 
-            <button class="btn btn-lg btn-primary btn-block btn-sign-in" type="submit">Заказать</button>
+            <button onclick="addOrderByPromise(event, {{ product.id }})" class="btn btn-lg btn-primary btn-block btn-sign-in" type="submit">Заказать</button>
 
 
         </form>

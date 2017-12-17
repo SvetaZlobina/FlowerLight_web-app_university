@@ -153,11 +153,13 @@ class ProductAddingForm(forms.Form):
 
 class OrderForm(forms.Form):
     amount = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'количество',
-                                                                'class': 'form-control'}),
+                                                                'class': 'form-control',
+                                                                'id': 'form-amount-id'}),
                                 min_value=1, max_value=999)
     delivery_date = forms.DateField(label='Выберите дату доставки:',
                                     widget=forms.SelectDateWidget(
-                                        attrs={'class': 'form-control'}))
+                                        attrs={'class': 'form-control',
+                                               'id': 'form-delivery_date-id'}))
 
     def add_order(self, client_id, product_id):
         amount = self.cleaned_data['amount']

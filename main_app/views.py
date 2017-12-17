@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 from .models import Product, Client, Order
 from .forms import LoginForm, RegisterForm, ProductAddingForm, OrderForm
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 
 def index_render(request):
@@ -35,9 +35,9 @@ def product_info(request, product_id):
     order_form = OrderForm()
     product = Product.objects.get(id=product_id)
     product_orders = Order.objects.filter(product=product)
-    clients_already_ordered = []
+    clients_already_ordered = set()
     for order in product_orders:
-        clients_already_ordered.append(Client.objects.get(id=order.client.id))
+        clients_already_ordered.add(Client.objects.get(id=order.client.id))
     data = {
         'product': product,
         'product_adding_form': product_adding_form,
@@ -108,14 +108,21 @@ def error(request):
 
 
 def order_adding(request, product_id):
-    if request.method == 'POST':
+    # if request.method == 'POST':
+    #     amount = request.POST['amount']
+        # delivery_year = request.POST['delivery_year']
+        # delivery_month = request.POST['delivery_month']
+        # delivery_day = request.POST['delivery_day']
+        # print(amount)
         form = OrderForm(request.POST)
         if form.is_valid():
             client_login = request.user.username
             client = Client.objects.get(login=client_login)
             form.add_order(client.id, product_id)
             url = reverse('product_page', kwargs={'product_id': product_id})
-            return HttpResponseRedirect(url)
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=400)
 
 
 def product_adding(request):
