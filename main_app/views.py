@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 
 from .models import Product, Client, Order
-from .forms import LoginForm, RegisterForm, ProductAddingForm
+from .forms import LoginForm, RegisterForm, ProductAddingForm, OrderForm
 
 from django.http import HttpResponseRedirect
 
@@ -29,9 +29,10 @@ def index_render(request):
 #     }
 #     return render(request, 'products.html', data)
 
-
+@login_required(login_url='/login/')
 def product_info(request, product_id):
     product_adding_form = ProductAddingForm()
+    order_form = OrderForm()
     product = Product.objects.get(id=product_id)
     product_orders = Order.objects.filter(product=product)
     clients_already_ordered = []
@@ -42,9 +43,9 @@ def product_info(request, product_id):
         'product_adding_form': product_adding_form,
         'clients_already_ordered': clients_already_ordered,
         'auth': request.user.is_authenticated,
-        'user': request.user
+        'user': request.user,
+        'order_form': order_form
     }
-    # print(clients_already_ordered[0].login)
     return render(request, 'product_info.html', data)
 
 
@@ -106,13 +107,15 @@ def error(request):
                                           'auth': request.user.is_authenticated})
 
 
-@login_required(login_url='/login/')
-def ordering(request):
-    product_adding_form = ProductAddingForm()
-    return render(request, 'ordering.html', {'user': request.user,
-                                             'auth': request.user.is_authenticated,
-                                             'product_adding_form': product_adding_form})
-    # 'product': product})
+def order_adding(request, product_id):
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            client_login = request.user.username
+            client = Client.objects.get(login=client_login)
+            form.add_order(client.id, product_id)
+            url = reverse('product_page', kwargs={'product_id': product_id})
+            return HttpResponseRedirect(url)
 
 
 def product_adding(request):
@@ -127,4 +130,3 @@ def product_adding(request):
                 return HttpResponseRedirect('/error/')
         else:
             return HttpResponseRedirect('/products/')
-

@@ -4,7 +4,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 
-from .models import Client, Product
+from .models import Client, Product, Order
 
 FORM_ERROR_MESSAGES = {'required': 'Пожалуйста, заполните это поле'}
 
@@ -147,5 +147,27 @@ class ProductAddingForm(forms.Form):
                                       description=description)
             new_product.save()
             return new_product.id
+        except BaseException:  # если вдруг что-то пошло не так
+            return False
+
+
+class OrderForm(forms.Form):
+    amount = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'количество',
+                                                                'class': 'form-control'}),
+                                min_value=1, max_value=999)
+    delivery_date = forms.DateField(label='Выберите дату доставки:',
+                                    widget=forms.SelectDateWidget(
+                                        attrs={'class': 'form-control'}))
+
+    def add_order(self, client_id, product_id):
+        amount = self.cleaned_data['amount']
+        delivery_date = self.cleaned_data['delivery_date']
+
+        try:
+            new_order = Order(client_id=client_id, product_id=product_id,
+                              amount=amount, delivery_date=delivery_date)
+            new_order.save()
+            return True
+
         except BaseException:  # если вдруг что-то пошло не так
             return False

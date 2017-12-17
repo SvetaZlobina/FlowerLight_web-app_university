@@ -102,3 +102,11 @@ html {
 .product-info{
     text-align: center;
 }
+
+/*.add-order-color:hover{*/
+    /*color: #fff!important;*/
+/*}*/
+
+.add-order-color{
+    color: #fff!important;
+}

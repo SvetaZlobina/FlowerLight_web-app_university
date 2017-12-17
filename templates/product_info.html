@@ -24,9 +24,9 @@
                 <h2>{{ product.name }}</h2>
                 <p>{{ product.description }}</p>
                 <h5>Цена: {{ product.price }} руб.</h5>
-                <p><a class="btn btn-secondary"
+                <p><a class="btn btn-secondary add-order-color"
                       style="margin-top: 10%"
-                      href="{% url 'ordering_page' %}" role="button">Заказать</a></p>
+                      onclick="orderingModal()" role="button">Заказать</a></p>
 
             </div>
 
@@ -35,4 +35,7 @@
         <hr>
 
     </div> <!-- /container -->
+
+    {% include 'ordering.html' %}
+
 {% endblock %}

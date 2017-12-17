@@ -1,22 +1,36 @@
-{% extends 'base.html' %}
+<div style="border: #5a5a5a solid; height: 80%;" id="popupWinOrdering" class="modal-win">
+    <div class="container form-container">
 
-{% block title %}Flowerlight - букет № {{ product.id }}{% endblock %}
+        <form action="{% url 'adding_order_page' product.id %}" method="post" class="form-signin" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2 class="form-signin-heading form-heading-align">Оформление заказа</h2>
 
-{% block body %}
-    <div class="container list-products">
-        <!-- Example row of columns --
+            <div class="form-errors">{{ order_form.non_field_errors }}</div>
+            {#            <label for="inputEmail" class="sr-only">Email address</label>#}
+            {#            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>#}
+            {#            <label for="inputPassword" class="sr-only">Password</label>#}
+            {#            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>#}
 
-        <div class="container list-products">
-        <!-- Example row of columns -->
-        <div class="row">
-            <div class="col-md-4">
-                <h2>Страница заказа</h2>
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+
+            <div>
+                {{ order_form.amount.errors }}
+                <p>{{ order_form.amount }}</p>
+            </div>
+            <div>
+                {{ order_form.delivery_date.errors }}
+                <p>{{ order_form.delivery_date.label }}</p>
+                <p>{{ order_form.delivery_date }}</p>
             </div>
 
-        </div>
 
-        <hr>
+            <button class="btn btn-lg btn-primary btn-block btn-sign-in" type="submit">Заказать</button>
 
-      </div> <!-- /container -->
-{% endblock %}
+
+        </form>
+        <button id="close-modal-ordering" style="width: 30%; margin-left: auto"
+                class="btn btn-lg btn-danger btn-block btn-sign-in">Отмена
+        </button>
+
+    </div>
+
+</div>
