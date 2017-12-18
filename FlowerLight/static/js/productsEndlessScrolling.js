@@ -32,7 +32,7 @@ function makeEndlessScrolling(next_page_number) {
                 response.json().then(function (data) {
                     let newProducts = data['results'];
                     let newRow = document.createElement('div');
-                    newRow.className = "row products-row-margin";
+                    newRow.className = "row";
                     // console.log(newProducts);
                     // console.log(Object.keys(data['results']).length);
 
@@ -41,6 +41,7 @@ function makeEndlessScrolling(next_page_number) {
                         // console.log(nextProduct);
                         let elemDiv = document.createElement('div');
                         elemDiv.className = "col-md-4 infinite-item";
+                        elemDiv.style = "margin-top: 3%";
 
                         let img = document.createElement('img');
                         img.className = "rounded-circle";
@@ -48,15 +49,32 @@ function makeEndlessScrolling(next_page_number) {
                         img.alt = "Generic placeholder image";
                         img.width = '140';
                         img.height = '140';
-                        elemDiv.appendChild(img);
 
                         let header = document.createElement('h2');
                         let anchor = document.createElement('a');
                         anchor.style = "color: inherit";
                         anchor.href = "/products/" + nextProduct['id'];
                         anchor.innerText = nextProduct['name'];
+
+                        let description = document.createElement('p');
+                        description.style = "height: 25%; overflow: hidden;";
+                        description.innerText = nextProduct['description'];
+
+                        let buttonMore = document.createElement('p');
+                        let buttonMoreAnchor = document.createElement('a');
+                        buttonMoreAnchor.className = "btn btn-secondary";
+                        buttonMoreAnchor.href = "/products/" + nextProduct['id'];
+                        buttonMoreAnchor.setAttribute('role', 'button');
+                        buttonMoreAnchor.innerText = 'Подробнее';
+
+
+
                         header.appendChild(anchor);
+                        buttonMore.appendChild(buttonMoreAnchor);
+                        elemDiv.appendChild(img);
                         elemDiv.appendChild(header);
+                        elemDiv.appendChild(description);
+                        elemDiv.appendChild(buttonMore);
 
                         newRow.appendChild(elemDiv);
                         productsContainer.appendChild(newRow);
@@ -64,9 +82,17 @@ function makeEndlessScrolling(next_page_number) {
                     // let nextElem = data['results'][0];
 
                     let productsCountAll = data['count'];
+                    if (productsCountAll <= window.nextProductsPage * 6) {
+                        console.log('зашли в удаление кнопки');
+                        console.log(window.nextProductsPage);
+                        let loadingButton = document.getElementById('button-more-loading');
+                        loadingButton.remove();
+                    }
                     console.log(productsCountAll);
+                    window.nextProductsPage += 1;
                 });
-                window.nextProductsPage += 1;
+
+
                 // next_page_number += 1;
                 // let loadingButton = document.getElementById('button-more-loading');
                 // loadingButton.removeAttribute('onmousedown');

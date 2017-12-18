@@ -7,7 +7,7 @@
 
 
     <div id='products-container' class="container list-products infinite-container">
-        <div class="row products-row-margin">
+        <div class="row" style="margin-top: 3%">
             {% if products %}
                 {% for product in products %}
                     {% include 'product_element.html' with element=product %}
