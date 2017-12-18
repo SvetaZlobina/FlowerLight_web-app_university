@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Client
-from .models import Product
+from .models import Product, ProductTag
 from .models import Order
 
 # Register your models here.
@@ -21,3 +21,8 @@ class ProductsAdmin(admin.ModelAdmin):
 class OrdersAdmin(admin.ModelAdmin):
     list_display = ['client', 'product', 'amount', 'order_date', 'delivery_date']
     list_filter = ('product', 'amount', 'order_date', 'delivery_date')
+
+
+@admin.register(ProductTag)
+class ProductTagsAdmin(admin.ModelAdmin):
+    pass

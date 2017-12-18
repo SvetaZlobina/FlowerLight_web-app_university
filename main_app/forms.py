@@ -4,7 +4,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 
-from .models import Client, Product, Order
+from .models import Client, Product, Order, ProductTag
 
 FORM_ERROR_MESSAGES = {'required': 'Пожалуйста, заполните это поле'}
 
@@ -127,6 +127,9 @@ class ProductAddingForm(forms.Form):
                                                                'placeholder': 'описание',
                                                                'rows': 2}))
     image = forms.ImageField(required=False)
+    tags = forms.ModelMultipleChoiceField(required=False, queryset=ProductTag.objects.all(),
+                                          widget=forms.SelectMultiple(attrs={'class': 'form-control',
+                                                                             'size': 2}))
 
     # widget=forms.FileInput(attrs={'placeholder': 'изображение',
     #                                                        'class': 'form-control'}))

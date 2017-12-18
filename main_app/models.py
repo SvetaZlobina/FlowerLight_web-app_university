@@ -16,6 +16,13 @@ class Client(models.Model):
         return self.login
 
 
+class ProductTag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
     BOUQUET = 0
     SEPARATED_FLOWER = 1
@@ -40,6 +47,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     description = models.TextField(null=True)
     image = models.ImageField(default='productPictures/default_flower_image.jpg', upload_to='productPictures')
+    tags = models.ManyToManyField(ProductTag)
 
     def __str__(self):
         return self.name
@@ -54,6 +62,9 @@ class Order(models.Model):
 
     def __str__(self):
         return '{}: {} - {}'.format(self.order_date, self.client, self.product)
+
+
+
 
 
 

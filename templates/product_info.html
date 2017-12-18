@@ -30,6 +30,13 @@
 
             </div>
 
+            <div class="col-md-4 product-info">
+                <h5 style="margin-top: 10%;">Теги товара:</h5>
+                {% for tag in product.tags.all %}
+                    <p>{{ tag }}</p>
+                {% endfor %}
+            </div>
+
         </div>
 
         <hr>
