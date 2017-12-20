@@ -5,7 +5,6 @@
 
 {% block body %}
 
-
     <div id='products-container' class="container list-products infinite-container">
         <div class="row" style="margin-top: 3%">
             {% if products %}
@@ -18,31 +17,14 @@
         </div>
     </div>
 
-    <div class="loading" style="display: none;">
-        Loading...
-    </div>
 
     {% if page_obj.has_next %}
         <div style="text-align: center; margin-top: 3%; color: #fff;">
             <a id="button-more-loading" class="btn btn-success" style="text-align: center"
                onmousedown="changePageNumber({{ page_obj.next_page_number }})"
                onclick="makeEndlessScrolling({{ page_obj.next_page_number }})"
-                    {#                class=""#}
-                    {#           href="{% url 'products_list' %}?page={{ page_obj.next_page_number }}"#}
             >Загрузить ещё</a>
         </div>
     {% endif %}
 
-    {#    <script>#}
-    {#        let infinite = new Waypoint.Infinite({#}
-    {#            element: $('.infinite-container')[0],#}
-    {#            onBeforePageLoad: function () {#}
-    {#                $('.loading').show();#}
-    {#            },#}
-    {#            onAfterPageLoad: function ($items) {#}
-    {#                $('.loading').hide();#}
-    {#            }#}
-    {#        });#}
-    {#    </script>#}
-    <script src="{% static 'js/productsEndlessScrolling.js' %}"></script>
 {% endblock %}

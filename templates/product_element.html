@@ -1,7 +1,6 @@
 {% load static %}
 <div class="col-md-4 infinite-item">
     <img class="rounded-circle"
-            {#         src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="#}
          src="{% static element.image.url %}"
          alt="Generic placeholder image" width="140" height="140"
          href="{% url 'product_page' element.id %}">
@@ -9,5 +8,6 @@
         <a style="color: inherit" href="{% url 'product_page' element.id %}">{{ element.name }}</a>
     </h2>
     <p style="height: 25%; overflow: hidden;">{{ element.description }}</p>
-    <p><a class="btn btn-secondary" href="{% url 'product_page' element.id %}" role="button">Подробнее</a></p>
+    <p><a class="btn btn-secondary" href="{% url 'product_page' element.id %}"
+          role="button">Подробнее</a></p>
 </div>

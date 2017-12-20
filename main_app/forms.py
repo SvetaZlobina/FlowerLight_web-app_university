@@ -1,8 +1,6 @@
 from django import forms
-from django.core import exceptions
 from django.contrib import auth
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
 
 from .models import Client, Product, Order, ProductTag
 
@@ -113,7 +111,7 @@ class RegisterForm(forms.Form):
 
 class ProductAddingForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'название',
-                                                         'class': 'form-control'}),
+                                                         'class': 'form-control', }),
                            max_length=50)
     type = forms.TypedChoiceField(choices=Product.PRODUCT_TYPE_CHOICES,
                                   empty_value='тип товара',
@@ -125,14 +123,15 @@ class ProductAddingForm(forms.Form):
                                                                'class': 'form-control'}), )
     description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control',
                                                                'placeholder': 'описание',
-                                                               'rows': 2}))
+                                                               'rows': 2,
+                                                               'id': 'descriptionArea',
+                                                               'oninput': 'productDescriptionValidate(event)',
+                                                               'onblur': 'removeDescriptionTipOnBlur()',
+                                                               'onfocus': 'productDescriptionValidate(event)'}))
     image = forms.ImageField(required=False)
     tags = forms.ModelMultipleChoiceField(required=False, queryset=ProductTag.objects.all(),
                                           widget=forms.SelectMultiple(attrs={'class': 'form-control',
-                                                                             'size': 2}))
-
-    # widget=forms.FileInput(attrs={'placeholder': 'изображение',
-    #                                                        'class': 'form-control'}))
+                                                                             'size': 3}))
 
     def add_product(self):
         name = self.cleaned_data['name']

@@ -77,20 +77,6 @@ WSGI_APPLICATION = 'FlowerLight.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'FlowerLight_db',
-#         # 'USER': 'FlowerLight_user',
-#         # 'PASSWORD': 'user',
-#         'USER': 'FlowerLight_admin',
-#         'PASSWORD': 'admin',
-#         'HOST': 'localhost',
-#         'PORT': 3306,
-#         'OPTIONS': {'charset': 'utf8'},
-#         'TEST_CHARSET': 'utf8'
-#     }
-# }
 
 DATABASES = {
     'default': {
@@ -107,6 +93,20 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'FlowerLight_db',
+#         # 'USER': 'FlowerLight_user',
+#         # 'PASSWORD': 'user',
+#         'USER': 'FlowerLight_admin',
+#         'PASSWORD': 'admin',
+#         'HOST': 'localhost',
+#         'PORT': 3306,
+#         'OPTIONS': {'charset': 'utf8'},
+#         'TEST_CHARSET': 'utf8'
+#     }
+# }
 
 # db_from_env = dj_database_url.config(conn_max_age=500)
 # DATABASES['default'].update(db_from_env)
@@ -167,5 +167,3 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', }
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-

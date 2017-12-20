@@ -65,7 +65,7 @@ html {
 }
 
 .modal-win {
-    height: 90%;
+    height: auto;
     width: 50%;
     background: #eeeeef;
     top: 50%;
@@ -91,26 +91,41 @@ html {
     top: 0;
 }
 
-.add-prod-color:hover{
-    color: #fff!important;
+.add-prod-color:hover {
+    color: #fff !important;
 }
 
-.add-prod-color{
-    color: #ffc107!important;
+.add-prod-color {
+    color: #ffc107 !important;
 }
 
-.product-info{
+.product-info {
     text-align: center;
 }
 
 /*.add-order-color:hover{*/
-    /*color: #fff!important;*/
+/*color: #fff!important;*/
 /*}*/
 
-.add-order-color{
-    color: #fff!important;
+.add-order-color {
+    color: #fff !important;
 }
 
-.products-row-margin{
-    margin-top: 3%!important;
+.products-row-margin {
+    margin-top: 3% !important;
+}
+
+.description-tip {
+    position: fixed;
+    padding: 10px 20px;
+    z-index: 5;
+    /* красивости... */
+
+    border: 1px solid #b3c9ce;
+    border-radius: 4px;
+    text-align: center;
+    font: italic 14px/1.3 arial, sans-serif;
+    color: #333;
+    background: #fff;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, .3);
 }

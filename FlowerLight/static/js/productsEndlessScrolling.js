@@ -3,24 +3,14 @@ window.nextProductsPage = 2;
 function makeEndlessScrolling(next_page_number) {
     next_page_number = window.nextProductsPage;
     console.log('on click - page: ', next_page_number);
-    // if (next_page_number !== 2) {
-    //     next_page_number += 1
-    // }
-    // let loadingButton = document.getElementById('button-more-loading');
-    // loadingButton.removeAttribute('onclick');
-    // loadingButton.addEventListener('onclick', makeEndlessScrolling(next_page_number));
-
 
     let productsContainer = document.getElementById('products-container');
 
     let url = '/api/products/?format=json&page=' + next_page_number;
     let csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-    // console.log(url);
+
     fetch(url, {
         method: 'GET',
-        // body: 'csrfmiddlewaretoken=' + csrftoken +
-        // '&amount=' + amount +
-        // '&delivery_date=' + delivery_year + '-' + delivery_month + '-' + delivery_day,
         headers: {
             "X-CSRFToken": csrftoken,
             'Content-Type': "text/html;charset=utf-8"
@@ -33,12 +23,8 @@ function makeEndlessScrolling(next_page_number) {
                     let newProducts = data['results'];
                     let newRow = document.createElement('div');
                     newRow.className = "row";
-                    // console.log(newProducts);
-                    // console.log(Object.keys(data['results']).length);
-
 
                     newProducts.forEach(function (nextProduct, i) {
-                        // console.log(nextProduct);
                         let elemDiv = document.createElement('div');
                         elemDiv.className = "col-md-4 infinite-item";
                         elemDiv.style = "margin-top: 3%";
@@ -68,7 +54,6 @@ function makeEndlessScrolling(next_page_number) {
                         buttonMoreAnchor.innerText = 'Подробнее';
 
 
-
                         header.appendChild(anchor);
                         buttonMore.appendChild(buttonMoreAnchor);
                         elemDiv.appendChild(img);
@@ -79,7 +64,6 @@ function makeEndlessScrolling(next_page_number) {
                         newRow.appendChild(elemDiv);
                         productsContainer.appendChild(newRow);
                     });
-                    // let nextElem = data['results'][0];
 
                     let productsCountAll = data['count'];
                     if (productsCountAll <= window.nextProductsPage * 6) {
@@ -91,16 +75,6 @@ function makeEndlessScrolling(next_page_number) {
                     console.log(productsCountAll);
                     window.nextProductsPage += 1;
                 });
-
-
-                // next_page_number += 1;
-                // let loadingButton = document.getElementById('button-more-loading');
-                // loadingButton.removeAttribute('onmousedown');
-                // // let loadingButtonNew = document.createElement('a');
-                // // loadingButtonNew.id = "button-more-loading";
-                // loadingButton.addEventListener('onmousedown', changePageNumber(next_page_number));
-                // loadingButtonCurr.addEventListener('onclick', makeEndlessScrolling(next_page_number));
-
             }
             else {
                 console.log('not 200 response');
@@ -109,15 +83,6 @@ function makeEndlessScrolling(next_page_number) {
                 loadingButton.remove();
             }
         });
-    // $.ajax({
-    //      type: 'GET',
-    //      url: '{% url '/products/' %}', //Ссылка на вьюху
-    //      dataType: "json",
-    //      data: {'value': 10},  //Здесь можно передать данные в GET запросе, например сколько значений получить
-    //      success: function(data) {
-    //          // Ответ приходит в переменную data. Её и рендерим на страницу
-    //      }
-    //  });
 }
 
 function changePageNumber(nextPageNumber) {
