@@ -7,7 +7,8 @@
     <div class="container list-products">
 
         <div class="row">
-            <div class="col-md-4 product-info">
+            <div id="clients-already-ordered"
+                 class="col-md-4 product-info">
                 <h5 style="margin-top: 10%;">Уже заказали этот товар:</h5>
                 {% for client in clients_already_ordered %}
                     <p>{{ client.login }}</p>

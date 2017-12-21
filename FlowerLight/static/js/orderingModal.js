@@ -21,11 +21,11 @@ function orderingModal() {
     };
 }
 
-function addOrderByPromise(e, product_id) {
+function addOrderByPromise(e, productId, clientUsername) {
     e.preventDefault();
     let closeButton = document.getElementById('close-modal-ordering');
 
-    let url = '/order_adding/' + product_id.toString();
+    let url = '/order_adding/' + productId.toString();
 
     let amount = $('input#form-amount-id').val();
     let delivery_year = $('select#id_delivery_date_year').val();
@@ -48,6 +48,12 @@ function addOrderByPromise(e, product_id) {
         if (response.status === 200) {
             closeButton.click();
             alert('Ваш заказ принят! Благодарим за использование услуг нашего магазина');
+
+            let newClient = document.createElement('p');
+            newClient.innerText = clientUsername;
+
+            let clientsInfo = document.getElementById("clients-already-ordered");
+            clientsInfo.appendChild(newClient);
         }
         else {
             alert('Что-то пошло не так. ' +

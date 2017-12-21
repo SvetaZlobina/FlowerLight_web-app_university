@@ -61,13 +61,9 @@ function removeTipAfterClosing() {
 }
 
 function validateDescriptionAfterSubmit(event) {
-    console.log(showingDescriptionTip);
-    console.log(descriptionArea.value.length);
-    console.log(descriptionTip);
-
+    
     if (descriptionArea.value.length < 15 && descriptionArea.value.length > 0
         && (showingDescriptionTip === false)) {
-        console.log('in');
         event.preventDefault();
         document.body.appendChild(descriptionTip);
         showingDescriptionTip = true;
