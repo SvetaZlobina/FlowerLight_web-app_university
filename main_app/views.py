@@ -108,49 +108,67 @@ class LoginView(View):
         return render(request, self.template_name, data)
 
 
-def register(request):
-    product_adding_form = ProductAddingForm()
-    if request.method == 'POST':
-        form = RegisterForm(request.POST)
+class RegisterView(View):
+    product_form_class = ProductAddingForm
+    register_form_class = RegisterForm
+    template_name = 'register.html'
+
+    def get(self, request):
+        data = {'form': self.register_form_class(),
+                'auth': request.user.is_authenticated,
+                'user': request.user,
+                'product_adding_form': self.product_form_class()}
+        return render(request, self.template_name, data)
+
+    def post(self, request):
+        form = self.register_form_class(request.POST)
         if form.is_valid():
             if form.user_register():
                 return HttpResponseRedirect('/login/')
             else:
                 return HttpResponseRedirect('/error/')
-    else:
-        form = RegisterForm()
-
-    return render(request, 'register.html', {'form': form,
-                                             'user': request.user,
-                                             'auth': request.user.is_authenticated,
-                                             'product_adding_form': product_adding_form})
+        data = {'form': form,
+                'auth': request.user.is_authenticated,
+                'user': request.user,
+                'product_adding_form': self.product_form_class()}
+        return render(request, self.template_name, data)
 
 
-def logout(request):
-    auth.logout(request)
-    return HttpResponseRedirect('/')
+class LogoutView(View):
+    @staticmethod
+    def get(request):
+        auth.logout(request)
+        return HttpResponseRedirect('/')
 
 
-def error(request):
-    return render(request, 'error.html', {'user': request.user,
-                                          'auth': request.user.is_authenticated})
+class ErrorView(View):
+    template_name = 'error.html'
+
+    def get(self, request):
+        data = {'user': request.user,
+                'auth': request.user.is_authenticated}
+        return render(request, self.template_name, data)
 
 
-def order_adding(request, product_id):
-    form = OrderForm(request.POST)
-    if form.is_valid():
-        client_login = request.user.username
-        client = Client.objects.get(login=client_login)
-        form.add_order(client.id, product_id)
-        url = reverse('product_page', kwargs={'product_id': product_id})
-        return HttpResponse(status=200)
-    else:
-        return HttpResponse(status=400)
+class OrderAddingView(View):
+    order_form_class = OrderForm
+
+    def post(self, request, product_id):
+        form = self.order_form_class(request.POST)
+        if form.is_valid():
+            client_login = request.user.username
+            client = Client.objects.get(login=client_login)
+            form.add_order(client.id, product_id)
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=400)
 
 
-def product_adding(request):
-    if request.method == 'POST':
-        form = ProductAddingForm(request.POST, request.FILES)
+class ProductAddingView(View):
+    product_adding_form_class = ProductAddingForm
+
+    def post(self, request):
+        form = self.product_adding_form_class(request.POST, request.FILES)
         if form.is_valid():
             new_product_id = form.add_product()
             if new_product_id:
