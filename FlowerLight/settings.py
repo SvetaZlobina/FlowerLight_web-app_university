@@ -78,35 +78,35 @@ WSGI_APPLICATION = 'FlowerLight.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'FlowerLight$default',
-#         # 'USER': 'FlowerLight_user',
-#         # 'PASSWORD': 'user',
-#         'USER': 'FlowerLight',
-#         'PASSWORD': 'f1l2o3w4e5r6s7',
-#         'HOST': 'FlowerLight.mysql.pythonanywhere-services.com',
-#         'PORT': 3306,
-#         'OPTIONS': {'charset': 'utf8'},
-#         'TEST_CHARSET': 'utf8'
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'FlowerLight_db',
+        'NAME': 'FlowerLight$default',
         # 'USER': 'FlowerLight_user',
         # 'PASSWORD': 'user',
-        'USER': 'FlowerLight_admin',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
+        'USER': 'FlowerLight',
+        'PASSWORD': 'f1l2o3w4e5r6s7',
+        'HOST': 'FlowerLight.mysql.pythonanywhere-services.com',
         'PORT': 3306,
         'OPTIONS': {'charset': 'utf8'},
         'TEST_CHARSET': 'utf8'
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'FlowerLight_db',
+#         # 'USER': 'FlowerLight_user',
+#         # 'PASSWORD': 'user',
+#         'USER': 'FlowerLight_admin',
+#         'PASSWORD': 'admin',
+#         'HOST': 'localhost',
+#         'PORT': 3306,
+#         'OPTIONS': {'charset': 'utf8'},
+#         'TEST_CHARSET': 'utf8'
+#     }
+# }
 
 # db_from_env = dj_database_url.config(conn_max_age=500)
 # DATABASES['default'].update(db_from_env)
