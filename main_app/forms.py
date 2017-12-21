@@ -139,8 +139,13 @@ class ProductAddingForm(forms.Form):
         price = self.cleaned_data['price']
         description = self.cleaned_data['description']
         image = self.cleaned_data['image']
+        tags = self.cleaned_data['tags']
+        print(tags[0])
 
         try:
+            tags_arr = []
+            for tag in tags:
+                tags_arr.append(ProductTag.objects.get(name=tag))
             if image:
                 new_product = Product(name=name, type=product_type, price=price,
                                       description=description, image=image)
@@ -148,8 +153,12 @@ class ProductAddingForm(forms.Form):
                 new_product = Product(name=name, type=product_type, price=price,
                                       description=description)
             new_product.save()
+            for tag in tags_arr:
+                new_product.tags.add(tag)
+            new_product.save()
             return new_product.id
-        except BaseException:  # если вдруг что-то пошло не так
+        except BaseException as e:  # если вдруг что-то пошло не так
+            print(e)
             return False
 
 
