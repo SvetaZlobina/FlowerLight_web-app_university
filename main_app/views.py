@@ -1,42 +1,51 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
+from django.views import View
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from rest_framework.generics import ListAPIView
 from rest_framework import pagination
 from django.http import HttpResponseRedirect, HttpResponse
+from django.utils.decorators import method_decorator
 
 from .models import Product, Client, Order
 from .forms import LoginForm, RegisterForm, ProductAddingForm, OrderForm
 from .serializers import ProductSerializer
 
 
-def index_render(request):
-    product_adding_form = ProductAddingForm()
-    return render(request, 'index.html', {'user': request.user,
-                                          'auth': request.user.is_authenticated,
-                                          'product_adding_form': product_adding_form})
+class IndexView(View):
+    product_form_class = ProductAddingForm
+    template_name = 'index.html'
+
+    def get(self, request):
+        data = {'user': request.user,
+                'auth': request.user.is_authenticated,
+                'product_adding_form': self.product_form_class()}
+        return render(request, self.template_name, data)
 
 
-@login_required(login_url='/login/')
-def product_info(request, product_id):
-    product_adding_form = ProductAddingForm()
-    order_form = OrderForm()
-    product = Product.objects.get(id=product_id)
-    product_orders = Order.objects.filter(product=product)
-    clients_already_ordered = set()
-    for order in product_orders:
-        clients_already_ordered.add(Client.objects.get(id=order.client.id))
-    data = {
-        'product': product,
-        'product_adding_form': product_adding_form,
-        'clients_already_ordered': clients_already_ordered,
-        'auth': request.user.is_authenticated,
-        'user': request.user,
-        'order_form': order_form
-    }
-    return render(request, 'product_info.html', data)
+@method_decorator(login_required(login_url='/login/'), name='dispatch')
+class ProductInfoView(View):
+    product_form_class = ProductAddingForm
+    order_form_class = OrderForm
+    template_name = 'product_info.html'
+
+    def get(self, request, product_id):
+        product = Product.objects.get(id=product_id)
+        product_orders = Order.objects.filter(product=product)
+        clients_already_ordered = set()
+        for order in product_orders:
+            clients_already_ordered.add(Client.objects.get(id=order.client.id))
+        data = {
+            'product': product,
+            'product_adding_form': self.product_form_class(),
+            'clients_already_ordered': clients_already_ordered,
+            'auth': request.user.is_authenticated,
+            'user': request.user,
+            'order_form': self.order_form_class()
+        }
+        return render(request, self.template_name, data)
 
 
 class ProductsListAPI(ListAPIView):
@@ -75,20 +84,28 @@ class ProductsList(ListView):
         return context
 
 
-def login(request):
-    product_adding_form = ProductAddingForm()
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
+class LoginView(View):
+    product_form_class = ProductAddingForm
+    login_form_class = LoginForm
+    template_name = 'login.html'
+
+    def get(self, request):
+        data = {'form': self.login_form_class(),
+                'auth': request.user.is_authenticated,
+                'user': request.user,
+                'product_adding_form': self.product_form_class()}
+        return render(request, self.template_name, data)
+
+    def post(self, request):
+        form = self.login_form_class(request.POST)
         if form.is_valid():
             if form.user_login(request):
                 return HttpResponseRedirect('/products/')
-    else:
-        form = LoginForm()
-
-    return render(request, 'login.html', {'form': form,
-                                          'auth': request.user.is_authenticated,
-                                          'user': request.user,
-                                          'product_adding_form': product_adding_form})
+        data = {'form': form,
+                'auth': request.user.is_authenticated,
+                'user': request.user,
+                'product_adding_form': self.product_form_class()}
+        return render(request, self.template_name, data)
 
 
 def register(request):

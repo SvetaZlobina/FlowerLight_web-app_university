@@ -61,7 +61,7 @@ function removeTipAfterClosing() {
 }
 
 function validateDescriptionAfterSubmit(event) {
-    
+
     if (descriptionArea.value.length < 15 && descriptionArea.value.length > 0
         && (showingDescriptionTip === false)) {
         event.preventDefault();
